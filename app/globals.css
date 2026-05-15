@@ -1,0 +1,475 @@
+@import "tailwindcss";
+
+/* ===================================================
+   BLUEPRINT AI — GLOBAL DESIGN SYSTEM
+   =================================================== */
+
+@layer base {
+  :root {
+    --background: 222 84% 5%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 7%;
+    --card-foreground: 213 31% 91%;
+    --popover: 222 47% 7%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 252 87% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 222 47% 11%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 252 87% 67%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 47% 14%;
+    --input: 222 47% 14%;
+    --ring: 252 87% 67%;
+    --radius: 0.75rem;
+
+    /* Blueprint AI brand colors */
+    --color-void: #050816;
+    --color-slate: #0f172a;
+    --color-indigo: #6366f1;
+    --color-violet: #8b5cf6;
+    --color-purple: #a855f7;
+    --color-cyan: #06b6d4;
+  }
+}
+
+@layer base {
+  * {
+    border-color: rgba(99, 102, 241, 0.1);
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #050816;
+    color: #e2e8f0;
+    background-image:
+      radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99, 102, 241, 0.15), transparent),
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(139, 92, 246, 0.08), transparent),
+      radial-gradient(ellipse 60% 60% at 20% 80%, rgba(6, 182, 212, 0.06), transparent);
+    min-height: 100vh;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.4);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.6);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: white;
+  }
+}
+
+/* ===================================================
+   AURORA ANIMATED BACKGROUND
+   =================================================== */
+
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: 0.6; }
+  33% { transform: translate(3%, -2%) scale(1.05); opacity: 0.8; }
+  66% { transform: translate(-2%, 3%) scale(0.95); opacity: 0.5; }
+}
+
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: 0.5; }
+  33% { transform: translate(-3%, 2%) scale(1.08); opacity: 0.7; }
+  66% { transform: translate(3%, -3%) scale(0.92); opacity: 0.4; }
+}
+
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: 0.4; }
+  50% { transform: translate(2%, 2%) scale(1.1); opacity: 0.6; }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-24px); }
+}
+
+@keyframes float-rotate {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(3deg); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(99, 102, 241, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(99, 102, 241, 0.3), 0 0 120px rgba(6, 182, 212, 0.15); }
+}
+
+@keyframes shimmer-slide {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes counter-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes border-spin {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===================================================
+   GLASSMORPHISM UTILITIES
+   =================================================== */
+
+.glass {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ===================================================
+   GRADIENT TEXT
+   =================================================== */
+
+.gradient-text {
+  background: linear-gradient(135deg, #e2e8f0 0%, #8b5cf6 40%, #6366f1 70%, #06b6d4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shimmer-slide 4s linear infinite;
+}
+
+.gradient-text-violet {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7, #6366f1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===================================================
+   GLOW EFFECTS
+   =================================================== */
+
+.glow-violet {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 60px rgba(99, 102, 241, 0.2);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 60px rgba(6, 182, 212, 0.2);
+}
+
+.glow-text-violet {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(99, 102, 241, 0.4);
+}
+
+/* ===================================================
+   GRID BACKGROUND
+   =================================================== */
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.grid-bg-sm {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ===================================================
+   ANIMATED BORDER
+   =================================================== */
+
+.animated-border {
+  position: relative;
+  border-radius: 12px;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4, #6366f1);
+  background-size: 300% 300%;
+  animation: border-spin 4s ease infinite;
+  z-index: -1;
+}
+
+.animated-border-subtle {
+  position: relative;
+  border-radius: 12px;
+}
+
+.animated-border-subtle::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(139,92,246,0.5), rgba(6,182,212,0.5));
+  background-size: 300% 300%;
+  animation: border-spin 6s ease infinite;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* ===================================================
+   SHIMMER LOADING
+   =================================================== */
+
+.shimmer {
+  background: linear-gradient(
+    105deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.04) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-slide 1.5s infinite;
+}
+
+/* ===================================================
+   FLOAT ANIMATIONS
+   =================================================== */
+
+.float-1 { animation: float-y 6s ease-in-out infinite; }
+.float-2 { animation: float-y 6s ease-in-out 1s infinite; }
+.float-3 { animation: float-y 6s ease-in-out 2s infinite; }
+.float-rotate-1 { animation: float-rotate 7s ease-in-out infinite; }
+.float-rotate-2 { animation: float-rotate 7s ease-in-out 2s infinite; }
+
+/* ===================================================
+   AURORA BACKGROUND BLOBS
+   =================================================== */
+
+.aurora-blob-1 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: aurora-1 12s ease-in-out infinite;
+}
+
+.aurora-blob-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: aurora-2 14s ease-in-out infinite;
+}
+
+.aurora-blob-3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: aurora-3 10s ease-in-out infinite;
+}
+
+/* ===================================================
+   MARQUEE
+   =================================================== */
+
+.marquee-container {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ===================================================
+   RADIX ACCORDION
+   =================================================== */
+
+[data-state="open"] .accordion-icon {
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+[data-state="closed"] .accordion-icon {
+  transition: transform 0.2s ease;
+}
+
+/* ===================================================
+   SKELETON LOADER
+   =================================================== */
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(15,23,42,0.8) 25%, rgba(30,41,59,0.6) 50%, rgba(15,23,42,0.8) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-slide 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ===================================================
+   PROGRESS BAR
+   =================================================== */
+
+.progress-glow {
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* ===================================================
+   MASONRY GRID
+   =================================================== */
+
+.masonry-grid {
+  columns: 4;
+  column-gap: 16px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1280px) {
+  .masonry-grid { columns: 3; }
+}
+@media (max-width: 768px) {
+  .masonry-grid { columns: 2; }
+}
+@media (max-width: 480px) {
+  .masonry-grid { columns: 1; }
+}
+
+/* ===================================================
+   CUSTOM BUTTON EFFECTS
+   =================================================== */
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  transition: width 0.4s ease, height 0.4s ease;
+  border-radius: 50%;
+}
+
+.btn-glow:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ===================================================
+   HOVER CARDS
+   =================================================== */
+
+.card-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(139,92,246,0.15);
+}
+
+/* ===================================================
+   NOISE TEXTURE OVERLAY
+   =================================================== */
+
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.5;
+  border-radius: inherit;
+}
+
+/* ===================================================
+   CUSTOM RANGE INPUT
+   =================================================== */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 4px;
+  background: rgba(99,102,241,0.2);
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(139,92,246,0.5);
+}

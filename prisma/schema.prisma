@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Plan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum RenderStyle {
+  MODERN_LUXURY
+  MINIMALIST
+  SCANDINAVIAN
+  CYBERPUNK
+  JAPANESE_ZEN
+  INDUSTRIAL
+  FUTURISTIC
+  MEDITERRANEAN
+}
+
+enum RenderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id             String          @id @default(cuid())
+  clerkId        String          @unique
+  email          String          @unique
+  name           String?
+  imageUrl       String?
+  credits        Int             @default(5)
+  plan           Plan            @default(FREE)
+  projects       Project[]
+  renders        Render[]
+  communityPosts CommunityPost[]
+  savedDesigns   SavedDesign[]
+  subscription   Subscription?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([clerkId])
+  @@index([email])
+}
+
+model Project {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  description   String?
+  inputImageUrl String
+  style         RenderStyle
+  prompt        String?
+  renders       Render[]
+  isPublic      Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([userId])
+}
+
+model Render {
+  id             String        @id @default(cuid())
+  projectId      String
+  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outputImageUrl String
+  inputImageUrl  String
+  status         RenderStatus  @default(PENDING)
+  style          RenderStyle
+  prompt         String?
+  metadata       Json?
+  communityPost  CommunityPost?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([projectId])
+}
+
+model CommunityPost {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  renderId    String        @unique
+  render      Render        @relation(fields: [renderId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  tags        String[]
+  likes       Int           @default(0)
+  views       Int           @default(0)
+  savedBy     SavedDesign[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([likes])
+}
+
+model SavedDesign {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  communityPostId String
+  communityPost   CommunityPost @relation(fields: [communityPostId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+
+  @@unique([userId, communityPostId])
+  @@index([userId])
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      Plan
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
