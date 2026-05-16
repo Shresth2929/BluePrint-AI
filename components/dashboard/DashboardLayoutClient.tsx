@@ -13,11 +13,9 @@ export default function DashboardLayoutClient({
 }: {
   children: React.ReactNode;
 }) {
-  const { collapsed, mobileOpen, setMobileOpen } = useUIStore((s) => ({
-    collapsed: s.sidebarCollapsed,
-    mobileOpen: s.mobileSidebarOpen,
-    setMobileOpen: s.setMobileSidebarOpen,
-  }));
+const collapsed = useUIStore((s) => s.sidebarCollapsed);
+const mobileOpen = useUIStore((s) => s.mobileSidebarOpen);
+const setMobileOpen = useUIStore((s) => s.setMobileSidebarOpen);
   const pathname = usePathname();
 
   // Close mobile sidebar on navigation

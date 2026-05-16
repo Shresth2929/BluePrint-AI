@@ -8,33 +8,32 @@ import { ArrowRight, Sparkles, Play, Star } from "lucide-react";
 
 const HERO_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
+    src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9",
     label: "Modern Luxury",
     style: "MODERN_LUXURY",
   },
   {
-    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80",
+    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
     label: "Scandinavian",
     style: "SCANDINAVIAN",
   },
   {
-    src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80",
+    src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3",
     label: "Futuristic",
     style: "FUTURISTIC",
   },
 ];
 
 const FLOATING_CARDS = [
-  { label: "Interior Render", time: "2.3s", src: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=300&q=80" },
-  { label: "Exterior View", time: "1.8s", src: "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=300&q=80" },
-  { label: "Floor Plan AI", time: "2.1s", src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&q=80" },
+  { label: "Interior Render", time: "2.3s", src: "https://images.unsplash.com/photo-1600210492493-0946911123ea" },
+  { label: "Exterior View", time: "1.8s", src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c" },
+  { label: "Floor Plan AI", time: "2.1s", src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7" },
 ];
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 600], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
   const [activeImage, setActiveImage] = useState(0);
@@ -86,7 +85,7 @@ export default function HeroSection() {
       <div className="aurora-blob-3 w-[400px] h-[400px] bg-cyan-500/6 bottom-0 left-1/4" />
 
       {/* Grid background */}
-      <div className="absolute inset-0 grid-bg opacity-40" />
+      <div className="absolute inset-0 grid-bg opacity-20" />
 
       {/* Radial fade overlay */}
       <div className="absolute inset-0 bg-radial-gradient"
@@ -96,7 +95,7 @@ export default function HeroSection() {
       />
 
       <motion.div
-        style={{ y: springY, opacity }}
+        style={{ y: springY }}
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
         {/* Badge */}
@@ -180,13 +179,13 @@ export default function HeroSection() {
         >
           <div className="flex -space-x-2">
             {[
-              "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&q=80",
-              "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&q=80",
-              "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=40&q=80",
-              "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=40&q=80",
+              "https://images.unsplash.com/photo-1494790108755-2616b612b786",
+              "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+              "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+              "https://images.unsplash.com/photo-1580489944761-15a19d654956",
             ].map((src, i) => (
               <div key={i} className="w-8 h-8 rounded-full border-2 border-[#050816] overflow-hidden">
-                <Image src={src} alt="user" width={32} height={32} className="object-cover" />
+                <Image src={src} alt="user" width={32} height={32} className="object-cover w-full h-full" />
               </div>
             ))}
           </div>
@@ -241,7 +240,6 @@ export default function HeroSection() {
                     fill
                     className="object-cover"
                     priority={i === 0}
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4 glass px-3 py-1.5 rounded-lg text-sm text-white font-medium border border-white/10">
@@ -268,20 +266,18 @@ export default function HeroSection() {
           </div>
 
           {/* Floating cards */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block z-20 relative">
             <motion.div
-              className="absolute -left-32 top-1/4 w-48 glass-card rounded-xl p-3 border border-violet-500/20"
+              className="absolute -left-32 top-1/4 w-48 glass-card rounded-xl p-3 border border-violet-500/20 shadow-2xl"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="w-full h-24 rounded-lg overflow-hidden mb-2">
+              <div className="w-full h-24 rounded-lg overflow-hidden mb-2 relative">
                 <Image
                   src={FLOATING_CARDS[0].src}
                   alt="Float 1"
-                  width={192}
-                  height={96}
-                  className="object-cover w-full h-full"
-                  unoptimized
+                  fill
+                  className="object-cover"
                 />
               </div>
               <p className="text-xs font-medium text-white">{FLOATING_CARDS[0].label}</p>
@@ -289,18 +285,16 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="absolute -right-32 top-1/3 w-48 glass-card rounded-xl p-3 border border-cyan-500/20"
+              className="absolute -right-32 top-1/3 w-48 glass-card rounded-xl p-3 border border-cyan-500/20 shadow-2xl"
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             >
-              <div className="w-full h-24 rounded-lg overflow-hidden mb-2">
+              <div className="w-full h-24 rounded-lg overflow-hidden mb-2 relative">
                 <Image
                   src={FLOATING_CARDS[1].src}
                   alt="Float 2"
-                  width={192}
-                  height={96}
-                  className="object-cover w-full h-full"
-                  unoptimized
+                  fill
+                  className="object-cover"
                 />
               </div>
               <p className="text-xs font-medium text-white">{FLOATING_CARDS[1].label}</p>

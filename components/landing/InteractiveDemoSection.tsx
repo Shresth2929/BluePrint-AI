@@ -13,8 +13,8 @@ const STEPS = [
 ];
 
 const BEFORE_AFTER = {
-  before: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80",
-  after: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80",
+  before: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64",
+  after: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9",
 };
 
 export default function InteractiveDemoSection() {
@@ -76,7 +76,6 @@ export default function InteractiveDemoSection() {
                 alt="AI Render"
                 fill
                 className="object-cover"
-                unoptimized
               />
 
               {/* Before image (overlay) */}
@@ -86,7 +85,6 @@ export default function InteractiveDemoSection() {
                   alt="Floor Plan"
                   fill
                   className="object-cover"
-                  unoptimized
                 />
                 <div className="absolute inset-0 bg-slate-900/10" />
               </div>

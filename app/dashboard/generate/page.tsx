@@ -16,10 +16,8 @@ const STEPS = ["Upload", "Style", "Customize", "Generate", "Result"];
 
 // ── Step 1: Upload ────────────────────────────────────────────────
 function UploadStep({ onNext }: { onNext: () => void }) {
-  const { setInputImage, inputImageUrl } = useGenerationStore((s) => ({
-    setInputImage: s.setInputImage,
-    inputImageUrl: s.inputImageUrl,
-  }));
+  const setInputImage = useGenerationStore((s) => s.setInputImage);
+  const inputImageUrl = useGenerationStore((s) => s.inputImageUrl);
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -131,10 +129,8 @@ function UploadStep({ onNext }: { onNext: () => void }) {
 
 // ── Step 2: Style Selection ───────────────────────────────────────
 function StyleStep({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
-  const { selectedStyle, setSelectedStyle } = useGenerationStore((s) => ({
-    selectedStyle: s.selectedStyle,
-    setSelectedStyle: s.setSelectedStyle,
-  }));
+  const selectedStyle = useGenerationStore((s) => s.selectedStyle);
+  const setSelectedStyle = useGenerationStore((s) => s.setSelectedStyle);
 
   return (
     <div className="space-y-6">
@@ -186,10 +182,8 @@ function StyleStep({ onNext, onBack }: { onNext: () => void; onBack: () => void 
 
 // ── Step 3: Customize ─────────────────────────────────────────────
 function CustomizeStep({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
-  const { prompt, setPrompt } = useGenerationStore((s) => ({
-    prompt: s.prompt,
-    setPrompt: s.setPrompt,
-  }));
+  const prompt = useGenerationStore((s) => s.prompt);
+  const setPrompt = useGenerationStore((s) => s.setPrompt);
 
   const SUGGESTIONS = [
     "Open plan living with floor-to-ceiling windows",
@@ -469,7 +463,7 @@ function ResultStep({ outputUrl, onReset }: { outputUrl: string; onReset: () => 
 export default function GeneratePage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [outputUrl, setOutputUrl] = useState<string | null>(null);
-  const { reset } = useGenerationStore((s) => ({ reset: s.reset }));
+  const reset = useGenerationStore((s) => s.reset);
 
   const handleComplete = (url: string) => {
     setOutputUrl(url);

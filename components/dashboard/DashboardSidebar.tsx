@@ -28,12 +28,11 @@ const NAV_ITEMS = [
 ];
 
 export default function DashboardSidebar() {
-  const { collapsed, toggleSidebar, mobileOpen, setMobileOpen } = useUIStore((s) => ({
-    collapsed: s.sidebarCollapsed,
-    toggleSidebar: s.toggleSidebar,
-    mobileOpen: s.mobileSidebarOpen,
-    setMobileOpen: s.setMobileSidebarOpen,
-  }));
+  const collapsed = useUIStore((s) => s.sidebarCollapsed);
+const toggleSidebar = useUIStore((s) => s.toggleSidebar);
+
+const mobileOpen = useUIStore((s) => s.mobileSidebarOpen);
+const setMobileOpen = useUIStore((s) => s.setMobileSidebarOpen);
   const pathname = usePathname();
   const { user } = useUser();
 

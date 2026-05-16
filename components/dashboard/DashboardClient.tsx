@@ -89,10 +89,10 @@ export default function DashboardClient({ firstName, dateStr }: DashboardClientP
               <div className={`w-9 h-9 ${stat.bg} rounded-lg flex items-center justify-center`}>
                 <stat.icon className={`w-4.5 h-4.5 ${stat.color}`} />
               </div>
-              <span className="text-xs text-slate-500 font-medium">{stat.trend}</span>
+              <span className="text-xs text-slate-400 font-medium">{stat.trend}</span>
             </div>
             <p className="text-2xl font-display font-bold text-white mb-0.5">{stat.value}</p>
-            <p className="text-slate-500 text-xs">{stat.label}</p>
+            <p className="text-slate-400 text-xs">{stat.label}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -113,12 +113,12 @@ export default function DashboardClient({ firstName, dateStr }: DashboardClientP
           </div>
 
           {/* Empty state */}
-          <div className="glass-card rounded-xl p-12 text-center border-dashed border-2 border-white/5 bg-gradient-to-b from-white/5 to-transparent">
-            <div className="w-14 h-14 rounded-2xl bg-violet-500/10 flex items-center justify-center mx-auto mb-4 float-1">
-              <Sparkles className="w-7 h-7 text-violet-400" />
+          <div className="glass-card rounded-xl p-12 text-center border-dashed border-2 border-white/10 bg-gradient-to-b from-white/5 to-transparent">
+            <div className="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center mx-auto mb-4 float-1">
+              <Sparkles className="w-7 h-7 text-violet-300" />
             </div>
-            <h4 className="text-white font-medium mb-2">No renders yet</h4>
-            <p className="text-slate-500 text-sm mb-5">Upload your first floor plan to get started</p>
+            <h4 className="text-white font-semibold mb-2">No renders yet</h4>
+            <p className="text-slate-400 text-sm mb-5">Upload your first floor plan to get started</p>
             <Link
               href="/dashboard/generate"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600/20 border border-violet-500/30 text-violet-300 text-sm hover:bg-violet-600/30 transition-colors btn-glow"
@@ -156,9 +156,9 @@ export default function DashboardClient({ firstName, dateStr }: DashboardClientP
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-white text-xs font-medium truncate group-hover:text-violet-300 transition-colors">{render.title}</p>
-                  <p className="text-slate-500 text-xs">@{render.author}</p>
+                  <p className="text-slate-400 text-xs">@{render.author}</p>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-slate-500">
+                <div className="flex items-center gap-1 text-xs text-slate-400">
                   <Heart className="w-3 h-3 text-pink-400" />
                   {render.likes.toLocaleString()}
                 </div>

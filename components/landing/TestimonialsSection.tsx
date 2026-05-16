@@ -11,7 +11,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Sarah Chen",
     role: "Principal Architect",
     company: "Studio Morphe",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786",
     content: "Blueprint AI has completely transformed how I present concepts to clients. What used to take 3 days in CAD now takes 30 seconds. The quality is indistinguishable from traditional renders.",
     rating: 5,
   },
@@ -19,7 +19,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Marcus Williams",
     role: "Interior Designer",
     company: "Luxe Interiors NYC",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
     content: "The Japanese Zen and Scandinavian styles are absolutely breathtaking. My clients are blown away every time. Blueprint AI pays for itself on the first project.",
     rating: 5,
   },
@@ -27,7 +27,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Priya Patel",
     role: "Real Estate Developer",
     company: "Horizon Properties",
-    avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
     content: "We use Blueprint AI for all our pre-sale marketing. The photorealistic renders help buyers visualize the finished product. Sales have increased 40% since we started using it.",
     rating: 5,
   },
@@ -35,7 +35,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Tom Eriksson",
     role: "Architectural Student",
     company: "KTH Stockholm",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
     content: "As a student with no budget for rendering software, Blueprint AI is a game-changer. I can iterate on designs in real-time and my professors are always impressed.",
     rating: 5,
   },
@@ -43,7 +43,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Amara Osei",
     role: "Design Director",
     company: "Osei & Partners",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
     content: "The community showcase alone is worth the subscription. Getting inspired by global architectural trends and sharing our work has opened doors to international clients.",
     rating: 5,
   },
@@ -51,7 +51,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "James Nakamura",
     role: "Urban Planner",
     company: "Tokyo Metropolitan",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
     content: "Blueprint AI understands architectural context in a way no other tool does. The Futuristic style renders our smart city concepts perfectly for stakeholder presentations.",
     rating: 5,
   },
@@ -59,7 +59,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Elena Rossi",
     role: "Landscape Architect",
     company: "Verde Studio Milano",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
     content: "The Mediterranean style captures the essence of our Italian villa projects beautifully. It's like having a world-class render artist available 24/7.",
     rating: 5,
   },
@@ -67,7 +67,7 @@ const TESTIMONIALS: Testimonial[] = [
     name: "David Park",
     role: "Founder",
     company: "Park Architecture Seoul",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
     content: "We've replaced our entire rendering pipeline with Blueprint AI. 10x faster, 5x cheaper, and the quality is honestly better than what we were getting from traditional artists.",
     rating: 5,
   },
@@ -79,8 +79,8 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       <Quote className="w-6 h-6 text-violet-400/40 mb-4" />
       <p className="text-slate-300 text-sm leading-relaxed mb-5">"{t.content}"</p>
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-          <Image src={t.avatar} alt={t.name} width={40} height={40} className="object-cover" unoptimized />
+        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 relative">
+          <Image src={t.avatar} alt={t.name} fill className="object-cover" />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-white text-sm font-medium truncate">{t.name}</p>
