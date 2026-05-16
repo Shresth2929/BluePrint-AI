@@ -99,6 +99,13 @@ export default function Navbar() {
                     appearance={{
                       elements: {
                         avatarBox: "w-8 h-8 ring-2 ring-violet-500/30 hover:ring-violet-500/60 transition-all",
+                        userButtonPopoverCard: "bg-[#050816]/95 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-xl",
+                        userPreviewMainIdentifier: "text-white font-medium",
+                        userPreviewSecondaryIdentifier: "text-slate-400",
+                        userButtonPopoverActionButton: "hover:bg-white/5 transition-colors",
+                        userButtonPopoverActionButtonText: "text-slate-300",
+                        userButtonPopoverActionButtonIcon: "text-slate-400",
+                        userButtonPopoverFooter: "border-t border-white/10",
                       },
                     }}
                   />
