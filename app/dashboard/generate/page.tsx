@@ -250,7 +250,7 @@ const GENERATION_STAGES = [
   { label: "Finalizing high-resolution output...", progress: 95, duration: 1500 },
 ];
 
-function GeneratingStep({ onComplete, onError }: { onComplete: (url: string) => void; onError: () => void }) {
+function GeneratingStep({ onComplete, onError }: { onComplete: (url: string, prompt?: string) => void; onError: () => void }) {
   const [stage, setStage] = useState(0);
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
@@ -293,7 +293,7 @@ function GeneratingStep({ onComplete, onError }: { onComplete: (url: string) => 
       setProgress(100);
       setStage(GENERATION_STAGES.length - 1);
       await new Promise((r) => setTimeout(r, 800)); // allow progress bar to hit 100%
-      onComplete(data.outputImageUrl ?? data.demoUrl);
+      onComplete(data.outputImageUrl ?? data.demoUrl, data.renderPrompt);
     } catch (err: any) {
       toast.error(err.message || "Generation failed. Please try again.");
       onError();
@@ -366,7 +366,7 @@ function GeneratingStep({ onComplete, onError }: { onComplete: (url: string) => 
 }
 
 // ── Step 5: Result ────────────────────────────────────────────────
-function ResultStep({ outputUrl, onReset }: { outputUrl: string; onReset: () => void }) {
+function ResultStep({ outputUrl, renderPrompt, onReset }: { outputUrl: string; renderPrompt?: string; onReset: () => void }) {
   const { inputImageUrl, selectedStyle } = useGenerationStore((s) => s);
   const style = RENDER_STYLES.find((s) => s.id === selectedStyle);
 
@@ -431,6 +431,23 @@ function ResultStep({ outputUrl, onReset }: { outputUrl: string; onReset: () => 
         </div>
       </div>
 
+      {/* AI Prompt Reveal */}
+      {renderPrompt && (
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="p-4 rounded-xl glass-light border border-white/10"
+        >
+          <p className="text-xs text-violet-300 font-medium mb-1 uppercase tracking-wider flex items-center gap-1">
+            <Sparkles className="w-3 h-3" /> Cinematic Prompt
+          </p>
+          <p className="text-sm text-slate-300 leading-relaxed italic border-l-2 border-violet-500/50 pl-3 py-1">
+            "{renderPrompt}"
+          </p>
+        </motion.div>
+      )}
+
       {/* Actions */}
       <div className="flex flex-wrap gap-3">
         <button
@@ -463,10 +480,12 @@ function ResultStep({ outputUrl, onReset }: { outputUrl: string; onReset: () => 
 export default function GeneratePage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [outputUrl, setOutputUrl] = useState<string | null>(null);
+  const [generatedPrompt, setGeneratedPrompt] = useState<string | undefined>(undefined);
   const reset = useGenerationStore((s) => s.reset);
 
-  const handleComplete = (url: string) => {
+  const handleComplete = (url: string, prompt?: string) => {
     setOutputUrl(url);
+    setGeneratedPrompt(prompt);
     setCurrentStep(4);
   };
 
@@ -475,6 +494,7 @@ export default function GeneratePage() {
   const handleReset = () => {
     reset();
     setOutputUrl(null);
+    setGeneratedPrompt(undefined);
     setCurrentStep(0);
   };
 
@@ -525,7 +545,7 @@ export default function GeneratePage() {
             {currentStep === 1 && <StyleStep onNext={() => setCurrentStep(2)} onBack={() => setCurrentStep(0)} />}
             {currentStep === 2 && <CustomizeStep onNext={() => setCurrentStep(3)} onBack={() => setCurrentStep(1)} />}
             {currentStep === 3 && <GeneratingStep onComplete={handleComplete} onError={handleError} />}
-            {currentStep === 4 && outputUrl && <ResultStep outputUrl={outputUrl} onReset={handleReset} />}
+            {currentStep === 4 && outputUrl && <ResultStep outputUrl={outputUrl} renderPrompt={generatedPrompt} onReset={handleReset} />}
           </motion.div>
         </AnimatePresence>
       </div>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { analyzeFloorPlan, generateRenderPrompt, generateWithFallback } from "@/lib/gemini";
+import { analyzeFloorPlan, generateRenderPrompt, generatePollinationsPrompt } from "@/lib/gemini";
 import { uploadImage } from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import type { RenderStyle } from "@/types";
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
     const hasDatabase = !!process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("user:password");
 
     let outputImageUrl: string;
+    let finalPrompt: string | undefined;
     let isDemo = false;
 
     if (hasGeminiKey && imageBase64) {
@@ -45,27 +46,40 @@ export async function POST(req: NextRequest) {
         // Step 1: Analyze floor plan
         const analysis = await analyzeFloorPlan(imageBase64, mimeType);
 
-        // Step 2: Generate render prompt
+        // Step 2: Generate base render prompt
         const renderPrompt = await generateRenderPrompt(analysis, style, prompt);
 
-        // Step 3: Generate architectural render
-        const result = await generateWithFallback(renderPrompt, imageBase64, mimeType);
+        // Step 3: Enhance prompt for Pollinations
+        const pollinationsPrompt = await generatePollinationsPrompt(renderPrompt);
+        finalPrompt = pollinationsPrompt;
+        
+        // Step 4: Generate architectural render URL via Pollinations
+        const seed = Math.floor(Math.random() * 10000000);
+        const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(pollinationsPrompt)}?width=1024&height=768&nologo=true&seed=${seed}`;
 
-        if (result.isDemo || !result.imageData) {
-          isDemo = true;
-          outputImageUrl = DEMO_RENDERS[Math.floor(Math.random() * DEMO_RENDERS.length)];
-        } else {
-          // Upload to Cloudinary if configured
-          if (hasCloudinaryKey) {
-            const buffer = Buffer.from(result.imageData, "base64");
-            const uploaded = await uploadImage(buffer, "renders", { tags: [style, "ai-render"] });
-            outputImageUrl = uploaded.url;
-          } else {
-            outputImageUrl = `data:${result.mimeType};base64,${result.imageData}`;
+        isDemo = false;
+
+        // Step 5: Upload to Cloudinary if configured
+        if (hasCloudinaryKey) {
+          try {
+            const response = await fetch(pollinationsUrl);
+            if (response.ok) {
+              const arrayBuffer = await response.arrayBuffer();
+              const buffer = Buffer.from(arrayBuffer);
+              const uploaded = await uploadImage(buffer, "renders", { tags: [style, "ai-render"] });
+              outputImageUrl = uploaded.url;
+            } else {
+              outputImageUrl = pollinationsUrl;
+            }
+          } catch (err) {
+            console.error("Cloudinary upload failed, falling back to pollinations URL");
+            outputImageUrl = pollinationsUrl;
           }
+        } else {
+          outputImageUrl = pollinationsUrl;
         }
       } catch (geminiError) {
-        console.error("Gemini generation error:", geminiError);
+        console.error("AI generation error:", geminiError);
         isDemo = true;
         outputImageUrl = DEMO_RENDERS[Math.floor(Math.random() * DEMO_RENDERS.length)];
       }
@@ -141,6 +155,7 @@ export async function POST(req: NextRequest) {
           projectId: project.id,
           isDemo,
           creditsRemaining: dbUser.credits - 1,
+          renderPrompt: finalPrompt,
         });
       } catch (dbError) {
         console.error("Database error:", dbError);
@@ -153,6 +168,7 @@ export async function POST(req: NextRequest) {
       outputImageUrl,
       isDemo,
       demoUrl: isDemo ? outputImageUrl : undefined,
+      renderPrompt: finalPrompt,
     });
   } catch (error) {
     console.error("Generation API error:", error);

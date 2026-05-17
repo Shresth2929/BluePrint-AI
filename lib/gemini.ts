@@ -78,76 +78,12 @@ The prompt should result in a magazine-quality architectural visualization. Outp
   return result.trim();
 }
 
-export async function generateArchitecturalRender(
-  renderPrompt: string,
-  imageBase64: string,
-  mimeType: string = "image/jpeg"
-): Promise<{ imageData: string; mimeType: string } | null> {
-  try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-preview-image-generation",
-      safetySettings,
-    });
-
-    const fullPrompt = `Generate a photorealistic, magazine-quality architectural render based on this floor plan/sketch reference. 
-
-${renderPrompt}
-
-Requirements:
-- Ultra-photorealistic quality, 8K detail
-- Professional architectural photography style
-- Dramatic lighting and shadows
-- Perfect composition and perspective
-- High-end finishes and materials
-- No people, keep it pure architecture`;
-
-    const result = await retryWithBackoff(async () => {
-      const response = await model.generateContent([
-        { text: fullPrompt },
-        { inlineData: { mimeType, data: imageBase64 } },
-      ]);
-      return response;
-    });
-
-    const response = result.response;
-    const parts = response.candidates?.[0]?.content?.parts ?? [];
-
-    for (const part of parts) {
-      if (part.inlineData?.mimeType?.startsWith("image/")) {
-        return {
-          imageData: part.inlineData.data,
-          mimeType: part.inlineData.mimeType,
-        };
-      }
-    }
-
-    return null;
-  } catch (error) {
-    console.error("Gemini image generation error:", error);
-    return null;
-  }
-}
-
-export async function generateWithFallback(
-  renderPrompt: string,
-  imageBase64: string,
-  mimeType: string
-): Promise<{ imageData: string; mimeType: string; isDemo?: boolean }> {
-  // Try native Gemini image generation first
-  const generated = await generateArchitecturalRender(renderPrompt, imageBase64, mimeType);
-
-  if (generated) {
-    return generated;
-  }
-
-  // Fallback: return a demo image indicator
-  // In production, you'd integrate with DALL-E, Stability AI, etc.
-  console.warn("Gemini image generation unavailable, using demo mode");
-  return {
-    imageData: "",
-    mimeType: "image/jpeg",
-    isDemo: true,
-  };
+export async function generatePollinationsPrompt(
+  renderPrompt: string
+): Promise<string> {
+  // Ensure the prompt is properly formatted and URI encoded for Pollinations
+  const enhancedPrompt = `${renderPrompt}, 8k resolution, highly detailed, photorealistic, cinematic lighting, architectural photography`;
+  return enhancedPrompt;
 }
 
 async function retryWithBackoff<T>(
