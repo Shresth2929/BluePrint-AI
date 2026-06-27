@@ -1,168 +1,164 @@
 # 🏗️ BluePrint AI
+
 ### AI-Powered Architectural Visualization SaaS Platform
 
-Transform traditional 2D architectural floor plans into realistic AI-generated 3D visualizations using modern Generative AI workflows.
+Transform traditional 2D architectural floor plans into photorealistic architectural visualizations using Generative AI.
+
+![Hero](public/screenshots/hero.png)
 
 ---
 
-## 🔗 Live Demo
+## 🚀 Live Demo
 
-👉 https://blue-print-ai-five.vercel.app
-
-## 📂 GitHub Repository
-
-👉 https://github.com/Shresth2929/BluePrint-AI
+🔗 https://blue-print-ai-five.vercel.app
 
 ---
 
-# 📖 Overview
+# 🎯 Problem Statement
 
-BluePrint AI is a full-stack AI SaaS platform designed to bridge the gap between traditional architectural planning and modern visualization technologies.
+Traditional architectural visualization workflows are:
 
-The platform enables architects, interior designers, builders, and homeowners to upload 2D architectural floor plans and generate realistic AI-powered visualizations through automated generative workflows.
+- Expensive
+- Time consuming
+- Require specialized software
+- Difficult for clients to visualize
+- Resource intensive
 
-The project demonstrates production-level full-stack engineering by integrating AI services, authentication systems, cloud storage, database management, and scalable frontend architecture.
+BluePrint AI solves this problem by leveraging Generative AI to automatically transform architectural sketches and floor plans into realistic architectural visualizations within seconds.
+
+The platform enables architects, designers, builders, and homeowners to rapidly prototype architectural concepts without requiring complex rendering software.
 
 ---
 
-# 🚀 Key Features
+# 🛠 Tech Stack
 
-### 🔐 Authentication & Security
-- Secure user authentication using Clerk
-- Protected routes and session management
-- User-specific project isolation
+| Category | Technologies |
+|----------|-------------|
+| Frontend | Next.js, React.js, TypeScript |
+| Backend | Node.js |
+| Database | PostgreSQL |
+| ORM | Prisma ORM |
+| Authentication | Clerk |
+| AI | Gemini AI |
+| Storage | Cloudinary |
+| State Management | Zustand |
+| Styling | Tailwind CSS |
+| Deployment | Vercel |
 
-### 🏗️ AI Architectural Visualization
-- Upload 2D floor plans
-- Generate AI-powered architectural visualizations
-- Automated rendering workflow
-- Intelligent image transformation pipeline
+---
 
-### 📁 Project Management
-- Create and manage multiple projects
-- Persistent project storage
-- Project dashboard interface
-- Real-time state updates
+# ✨ Features
 
-### ☁️ Cloud Storage
-- Secure image uploads
-- Cloudinary asset management
-- Optimized media delivery
-- Persistent cloud storage
+- 🤖 AI-powered architectural render generation
+- 🏠 Interior and exterior visualization
+- ☁️ Cloud project storage
+- 🔐 Secure authentication and authorization
+- ⚡ Real-time rendering progress tracking
+- 🎨 Multi-style architectural generation
+- 👥 Community showcase
+- 📤 HD export and sharing
+- 📱 Fully responsive dashboard
+- 📊 Project analytics dashboard
 
-### ⚡ Performance Optimization
-- Server-side rendering using Next.js
-- Optimized API communication
-- Reusable component architecture
-- Responsive user experience
+---
+
+## 📸 Features Showcase
+
+![Features](public/screenshots/features.png)
 
 ---
 
 # 🏛️ System Architecture
 
 ```text
-                User
-                  │
-                  ▼
-         Next.js Frontend
-                  │
-                  ▼
-            REST APIs
-                  │
-                  ▼
-             Gemini AI
-                  │
-                  ▼
-             Cloudinary
-                  │
-                  ▼
-        PostgreSQL Database
-                  │
-                  ▼
-             Prisma ORM
+                    User
+                      │
+                      ▼
+              Next.js Frontend
+                      │
+                      ▼
+               Clerk Authentication
+                      │
+                      ▼
+                  API Routes
+                      │
+                      ▼
+                 Gemini AI
+                      │
+                      ▼
+                 Cloudinary
+                      │
+                      ▼
+               PostgreSQL DB
+                      │
+                      ▼
+                 Prisma ORM
 ```
 
 ---
 
-# 🖼️ Application Workflow
+# 🔄 Application Workflow
 
 ```text
 Upload Floor Plan
         │
         ▼
-Validate User
+User Authentication
         │
         ▼
-Store Image in Cloudinary
+Image Upload
         │
         ▼
-Send Request to Gemini AI
+AI Analysis
         │
         ▼
-Generate Visualization
+Render Generation
         │
         ▼
-Save Project Metadata
+Cloud Storage
         │
         ▼
-Display Final Output
+Project Dashboard
 ```
 
 ---
 
-# 📸 Screenshots
+## ⚙️ Workflow Visualization
 
-## Landing Page
-
-![Landing Page](./screenshots/landing.png)
+![Workflow](public/screenshots/workflow.png)
 
 ---
 
-## Dashboard
+# 📊 Dashboard
 
-![Dashboard](./screenshots/dashboard.png)
+BluePrint AI provides a modern SaaS dashboard for managing renders, projects, credits, and community engagement.
 
----
-
-## Upload Interface
-
-![Upload](./screenshots/upload.png)
+![Dashboard](public/screenshots/dashboard.png)
 
 ---
 
-## AI Generated Result
+# 🤖 AI Rendering Pipeline
 
-![Result](./screenshots/result.png)
+The rendering engine performs:
 
----
+- Floor plan analysis
+- Style extraction
+- Prompt engineering
+- AI image generation
+- Render optimization
+- Asset storage
 
-# 💡 Problem Statement
+Real-time progress indicators allow users to monitor the rendering workflow.
 
-Traditional architectural visualization processes are:
-
-- Expensive
-- Time-consuming
-- Technically complex
-- Resource intensive
-
-BluePrint AI solves these challenges by automating visualization generation through modern AI workflows, enabling faster concept validation and improved client communication.
+![Generation](public/screenshots/generation.png)
 
 ---
 
-# 🛠️ Tech Stack
+# ✨ Final AI Generated Result
 
-| Category | Technologies |
-|----------|-------------|
-| Frontend | Next.js, React.js, TypeScript |
-| Backend | Node.js, REST APIs |
-| Database | PostgreSQL |
-| ORM | Prisma ORM |
-| Authentication | Clerk |
-| State Management | Zustand |
-| Styling | Tailwind CSS |
-| AI Integration | Gemini API |
-| Media Storage | Cloudinary |
-| Deployment | Vercel |
+Below is an example of the AI transforming a simple floor plan into a photorealistic architectural visualization.
+
+![Result](public/screenshots/result.png)
 
 ---
 
@@ -173,10 +169,12 @@ BluePrint-AI
 │
 ├── app
 ├── components
+│   └── landing
 ├── hooks
 ├── lib
 ├── prisma
 ├── public
+│   └── screenshots
 ├── store
 ├── types
 │
@@ -188,25 +186,25 @@ BluePrint-AI
 
 ---
 
-# ✨ Technical Highlights
+# 💡 Technical Highlights
 
-✔ Built a production-ready full-stack SaaS application
+✔ Developed a production-ready AI SaaS platform
 
-✔ Integrated Generative AI workflows using Gemini AI APIs
+✔ Integrated Gemini AI for architectural visualization
 
-✔ Implemented secure authentication and authorization using Clerk
+✔ Implemented secure authentication using Clerk
 
-✔ Designed scalable backend architecture using REST APIs
+✔ Designed scalable REST API architecture
 
-✔ Utilized PostgreSQL and Prisma ORM for persistent storage
+✔ Managed cloud media using Cloudinary
 
-✔ Managed cloud-based image assets using Cloudinary
+✔ Utilized PostgreSQL with Prisma ORM
+
+✔ Built responsive UI using Next.js and Tailwind CSS
 
 ✔ Implemented global state management using Zustand
 
-✔ Developed responsive UI using Next.js and Tailwind CSS
-
-✔ Deployed application using Vercel production infrastructure
+✔ Deployed application on Vercel
 
 ---
 
@@ -214,33 +212,33 @@ BluePrint-AI
 
 This project helped me gain practical experience in:
 
-- Full-stack application architecture
-- SaaS product development
-- Authentication and authorization
-- Database design and optimization
-- ORM implementation using Prisma
-- Cloud storage management
+- Full-stack SaaS architecture
 - Generative AI integration
-- API design principles
-- State management patterns
-- Production deployment workflows
+- Cloud storage management
+- Authentication systems
+- Database design
+- State management
+- Prompt engineering
+- Production deployment
+- Performance optimization
+- Scalable frontend architecture
 
 ---
 
 # 🚀 Future Enhancements
 
-- Multi-floor building support
 - Video walkthrough generation
-- AR/VR architectural visualization
-- Collaborative workspace features
-- AI style customization
-- Payment gateway integration
-- Team project management
-- Architectural analytics dashboard
+- AR/VR visualization
+- Multi-floor support
+- Team collaboration
+- Payment integration
+- AI customization presets
+- Analytics dashboard
+- Real-time collaboration
 
 ---
 
-# ⚙️ Local Installation
+# ⚙️ Installation
 
 Clone the repository:
 
@@ -248,7 +246,7 @@ Clone the repository:
 git clone https://github.com/Shresth2929/BluePrint-AI.git
 ```
 
-Move into the project:
+Navigate to project:
 
 ```bash
 cd BluePrint-AI
@@ -260,14 +258,19 @@ Install dependencies:
 npm install
 ```
 
-Configure environment variables:
+Create environment variables:
 
-```bash
+```env
 DATABASE_URL=
+
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
+
 GEMINI_API_KEY=
+
+CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 ```
 
 Run development server:
@@ -276,7 +279,7 @@ Run development server:
 npm run dev
 ```
 
-Visit:
+Open:
 
 ```bash
 http://localhost:3000
@@ -284,21 +287,13 @@ http://localhost:3000
 
 ---
 
-# 📈 Resume Highlights
-
-- Developed an AI-powered architectural visualization SaaS platform using Next.js, PostgreSQL, Prisma, and Gemini AI.
-- Built secure authentication, cloud storage, project management, and AI rendering workflows.
-- Designed scalable REST APIs and deployed the production-ready application using Vercel.
-
----
-
 # 👨‍💻 Author
 
-**Shresth Veer Singh**
+### Shresth Veer Singh
 
 - GitHub: https://github.com/Shresth2929
-- LinkedIn: (Add your LinkedIn URL)
-- Portfolio: (Add your portfolio URL)
+- LinkedIn: Add your LinkedIn profile
+- Portfolio: Add your portfolio link
 
 ---
 
