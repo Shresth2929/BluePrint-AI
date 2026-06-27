@@ -292,8 +292,8 @@ http://localhost:3000
 ### Shresth Veer Singh
 
 - GitHub: https://github.com/Shresth2929
-- LinkedIn: Add your LinkedIn profile
-- Portfolio: Add your portfolio link
+- LinkedIn: https://www.linkedin.com/in/shresth-veer-singh/
+- Portfolio: https://portfolio-three-sand-77.vercel.app/
 
 ---
 
